@@ -20,21 +20,99 @@
 	- freelancer can search projects and place bids on them		[]
 	*/
 	
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	function get_table_prefix()
+	{
+		return "freelancer_";
+	}
+	
 	class money
 	{
-		public amount;	//numeric	//145
-		public currency;	//string	//"USD"		//USD, CAD, INR, GBP, AUD,	...
+		public $amount;	//numeric	//145
+		public $currency;	//string	//"USD"		//USD, CAD, INR, GBP, AUD,	...
 	}
 		
 	class user
 	{
 		public $email;	//string		//"asd@asd.com"
+		public $email_verified=false;		//boolean	//false
 		public $password;	//string	//"asdbc"
 		public $name;	//string		//"Ben Allen"
 		public $date_time;	//date-time
 		public $balance=array();	//class money array
 		public $msg_order=array();	//class message array
-			
+				
+		public function get_table_name()
+		{
+			return get_table_prefix()."user";
+		}
+		
+		private function sql_destroy()
+		{
+			$tablename=get_table_name();
+			$sql="DROP TABLE $tablename;";
+			//<TODO> execute query
+			//<TODO> error handling
+			//<TODO> return true or false depending on success or failure
+		}
+		
+		public function sql_init()
+		{
+			sql_destroy();
+			$tablename=get_table_name();
+			$sql="CREATE TABLE $tablename(
+				id bigint(9) UNSIGNED NOT NULL AUTO_INCREMENT,
+				parent_id bigint(9),
+				array_id bigint(9),
+				email text not null unique,
+				email_verified bool,
+				pass text,
+				name text,
+				balance bigint(9),
+				msg_order bigint(9),
+				date_time datetime,
+				PRIMARY KEY (id)
+				) $charset_collate;";
+			//<TODO> execute query
+			//<TODO> error handling
+			//<TODO> return true or false depending on success or failure
+		}
+		
+		public function does_object_exist($email)
+		{
+			$tablename=get_table_name();
+			$sql="SELECT id from $tablename where email='$email';";
+			//<TODO> execute query
+			//<TODO> error handling
+			//<TODO> if record found then return true else return false;
+		}
+		
+		public function get_object($email)
+		{
+			$tablename=get_table_name();
+			$sql="select * from $tablename where email='$email'";
+			//<TODO> execute query
+			//<TODO> error handling
+			//<TODO> if record found, then create object and return, else return false
+		}
+		
+		public function new_object($email,$pass,$name)
+		{
+			$tablename=get_table_name();
+			$sql="insert into $tablename() values('$email','$pass','$name')";
+			//<TODO> execute query
+			//<TODO> handle error 
+			//<TODO> return id on success and false on failure
+		}
+		
 		public function __construct($email,$pass,$name)
 		{
 			$this->email=$email;
@@ -46,6 +124,16 @@
 		//FUNCTIONS:
 		//add money 
 		//request withdraw money
+		
+		public function add_money()
+		{
+			
+		}
+		
+		public function withdraw_money_request()
+		{
+			
+		}
 	}
 
 	class client extends user
@@ -96,7 +184,7 @@
 	class bid
 	{
 		public $project;		//class project
-		public $freelancer		//class freelancer
+		public $freelancer;		//class freelancer
 		public $description;	//string		//"I can do this project easily."
 		public $amount;			//class money
 		public $days;			//numeric		//25
@@ -191,7 +279,57 @@
 	//create freelancer
 	
 	
+	function app_init()
+	{
+		//call sql_init of all classes
+	}
+	
+	
+	function get_user($email)		//return class user or false
+	{	
+		//<TODO> SQL query
+	}
 
+	function authentication($email, $pass)	//return class user or false
+	{
+		//<TODO> check for email format, empty password
+		//<TODO> password encryption
+		//<TODO> check for SQL injection
+		$user=get_user($email);
+		if($user===false) return false;
+		if($user->pass==$pass) return $user;
+		return false;
+	}
+	
+	function register($email,$pass,$name)
+	{
+		//<TODO> check for email format, empty password and empty name
+		//<TODO> password encryption
+		//<TODO> check for SQL injection
+		//<TODO> implement email verification
+		$new_client=new client($email,$pass,$email);
+		return login($email,$pass);
+	}
+	
+	function login($email,$pass)
+	{
+		//<TODO> check for email format, empty password
+		//<TODO> password encryption
+		//<TODO> check for SQL injection
+		$user=authentication($email,$pass);
+		if(!$i) return false;
+		session_start();
+		$_SESSION["email"]=$email;
+		$_SESSION["user_id"]=$user->id;
+		return true;
+	}	
+	
+	function logout()
+	{
+		session_destroy();
+	}
+
+	
 ?>
 
 
