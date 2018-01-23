@@ -1,0 +1,27 @@
+git init
+git status
+git add readme.txt
+git add .
+git add *.html
+git commit
+git commit -m  'commit msg'
+git commit -a -m 'change 6'
+git commit -am 'change 6'
+git log
+touch .gitignore
+git branch MyBranch
+git checkout MyBranch
+git checkout master
+git merge MyBranch			(execute this cmd from inside destination branch)
+git merge master			(master is the always the name of the main branch)
+git stash
+git stash apply
+git remote
+git remote -v
+git clone https://github.com/allenross356/platforms.git
+git fetch origin
+git fetch MyRepo
+git pull origin
+git push origin master
+git remote add MyRepo http://github.com/allenross356/freelancer.git
+
