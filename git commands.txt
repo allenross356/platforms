@@ -14,7 +14,7 @@ git checkout MyBranch
 git checkout master
 git merge MyBranch			(execute this cmd from inside destination branch)
 git merge master			(master is the always the name of the main branch)
-git stash
+git stash 
 git stash apply
 git remote
 git remote -v
