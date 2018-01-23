@@ -19,6 +19,7 @@
 		public $name;	//string		//"Ben Allen"
 		public $date_time;	//date-time
 		public $balance=array();	//class money array
+		public $msg_order=array();	//class message array
 			
 		public function __construct($email,$pass,$name)
 		{
@@ -27,19 +28,21 @@
 			$this->name=$name;
 			//$date_time <TODO>
 		}
+		
+		
+		//add money
+		
+		//request withdraw money
 	}
 
 	class client extends user
 	{
 		public $projects=array();	//class project	array	
-		public $msg_order=array();	//class message array
 		
 		//FUNCTIONS:
 		//create project
 		
-		//add money
-		
-		//request withdraw money
+		//search freelancers
 	}
 	
 	class freelancer extends user
@@ -50,8 +53,7 @@
 		//FUNCTIONS:
 		//place bid
 
-		
-		
+		//search projects
 	}
 	
 	class project
@@ -111,9 +113,9 @@
 		
 		//block		//project owner can block from block bid placer from sending any msg to him
 		
-		//create milestone	//project owner can create milestone
-				
 		//reward project to bid placer
+
+		//create milestone	//project owner can create milestone				
 	}
 	
 	class message
@@ -126,18 +128,28 @@
 	
 	class milestone
 	{
-		public project;
-		public amount;
-		public description;
+		public $project;	//class project
+		public $bid;	//class bid
+		public $amount;	//numeric	//145
+		public $description;	//string	//"milestone to initiate"
+		public $date_time;	//date-time
 		
 		//FUNCTIONS:
 		
-		//CLIENT:
-		 
+		//CLIENT:		 
 		
-		//release milestone	
+		//release milestone
 		
 		//dispute milestone
+	}
+	
+	class dispute
+	{
+		public $milestone;
+		public $user;
+		public $msgs=array();
+		public $date_time;
+		public $willing
 	}
 
 	$clients=array();	//class client array
