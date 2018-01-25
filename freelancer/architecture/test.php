@@ -117,16 +117,102 @@
 	//$a=new client;
 	//$a();
 
+
 	class a
 	{
-		
+		public $r=6;
 	}
 	
 	class b
 	{
-		public $s=[];
+		public $s=["s","d"];
 		public $n=23;
-		//public 
+		public $c;
+		
+		public function __construct()
+		{
+			$this->c=new a;
+		}
 	}
+	
+	class d
+	{
+		public $t;
+		
+		public function __construct()
+		{
+			$this->t=[new b, new a];
+		}
+	}
+	
+	class sql_oop
+	{
+		public function __invoke()
+		{
+			$g=new d;
+			var_dump($g);
+		}
+	}
+	
+	$b=new sql_oop;
+	$b();
+	
+	$sql="CREATE TABLE string(
+						id mediumint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+						parent_id mediumint,
+						name varchar(64) not null,
+						index mediumint,
+						value text;
+						);";
+
+	$sql="CREATE TABLE int(
+						id mediumint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+						parent_id mediumint,
+						name varchar(64) not null,
+						index mediumint,
+						value bigint;
+						);";
+
+	
+	$sql="CREATE TABLE a(
+						id mediumint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+						parent_id mediumint,
+						name varchar(64) not null,
+						index mediumint,
+						r bigint;
+						);";
+	
+	$sql="CREATE TABLE b(
+						id mediumint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+						parent_id mediumint,
+						name varchar(64) not null,
+						index mediumint,
+						s mediumint;
+						n bigint;
+						c mediumint;
+						);";
+
+	$sql="CREATE TABLE b(
+						id mediumint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+						parent_type text,
+						parent_id mediumint,
+						name varchar(64) not null,
+						index mediumint,
+						s mediumint;
+						n bigint;
+						c mediumint;
+						);";
+						
+	$sql="CREATE TABLE d(
+						id mediumint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+						parent_id mediumint,
+						name varchar(64) not null,
+						index mediumint,
+						t bigint;
+						);";
+	
+	
+	
+	
 
 ?>
