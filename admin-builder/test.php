@@ -5,6 +5,7 @@
 	//difference between mark and insert-action .. is same as mutex and semaphore.. mark action can hold only 1,unique record of its kind while insert-action can hold only multiple record.
 	//'on' and 'to' are interchangeable.. these keywords also act as separator.. any words that are not defined in the compiler act as separators
 	//create attribute/user/action type
+	//create user 	- create single user
 	//create view
 	//any name of type or attribute can hold alphabets, numbers, -, _ and start can start with alphabet or - or _.. on compilation, all '-' characters will converted to "_" with default compiler setting.. however compiler setting can changed to treat '-' to mark capitalization in which case case a variable name/type/attribute insert-record will change insertRecord on compilation.. compiler setting can set to treat the starting '-' character and middle '-' for example insert-record will convert to insertRecord but -record will convert to _record.. 
 	//: denotes begin of multi line command.. each : must be followed by ; in subsequent line.. ; denotes end of multi line command
@@ -25,7 +26,6 @@
 	create user type freelancer extends user
 	create user admin with attributes(string,string) email,pass
 	
-	create object type project with attributes(string,string,budget-range,currency,skills,string) title,description,budget-range,currency,skills,attachments,additional-info
 	
 	create action type register by user define as usual register
 		//OR create action type register by user define usual register
@@ -33,8 +33,10 @@
 	create action type login by user define as usual login
 	
 	//optional
-	start feature freelancer
+	start feature freelancer(client,freelancer) 
 	//end optional
+	create object type project with attributes(string,string,budget-range,currency,skills,string) title,description,budget-range,currency,skills,attachments,additional-info
+	
 	create action type create-project by client on project define as usual insert-record
 	create action type destroy-project by client on own project define as usual delete-record
 	create action type view-project by client on own project define as select-record
@@ -50,7 +52,6 @@
 	
 	create action type accept by freelancer on own bid on award define as usual mark
 	create action type reject by freelancer on own bid on award define as usual unmark award
-	
 	//optional
 	feature end
 	//end optional
@@ -70,6 +71,10 @@
 	
 	
 	
+	
+	
+	
+	
 	start init view
 	logo=../images/logo.png
 	title=Better Than Freelancer
@@ -77,6 +82,41 @@
 	
 	create view register function usual register
 	create view login function usual login
+
+	create view client-register extends register
+	create view client-login extends login
+
+	create view freelancer-register extends register
+	create view freelancer-login extends login
+	
+	create view client-panel function:
+	(	
+		for large laptop:
+		broad horizontal header on top with full width with logo and title
+		fixed narrow horizontal navigation under header with full width with:
+			Home
+			About Us
+			Contact
+			Legal;
+		fixed narrow vertical navigation under horizontal navigation on left with full height with:
+			Projects
+			Messages
+			Freelancers
+			Balance
+			History
+			Log Out;
+		fixed narrow vertical panel under horizontal navigation on right with full height with:
+			;
+		big panel under horizontal navigation in center
+		;
+		
+		for small laptop:;
+		
+		for tablet:;
+		
+		for phone:;
+	)
+	;
 	create view search-projects
 	
 	
