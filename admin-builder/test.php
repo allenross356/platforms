@@ -33,7 +33,7 @@
 	create action type login by user define as usual login
 	
 	//optional
-	start feature freelancer(client,freelancer) 
+	start feature projects-and-bidding(client,freelancer) 
 	//end optional
 	create object type project with attributes(string,string,budget-range,currency,skills,string) title,description,budget-range,currency,skills,attachments,additional-info
 	
@@ -80,34 +80,42 @@
 	title=Better Than Freelancer
 	init end
 	
-	create view register function usual register
-	create view login function usual login
-
-	create view client-register extends register
-	create view client-login extends login
-
-	create view freelancer-register extends register
-	create view freelancer-login extends login
+	create view register with url ~/register with function usual register(user, url ~/,load view choose-type)
+	create view login with url ~/login with function usual login(user, url ~/, load view choose-type)
+	create view logut with url ~/logout with function usual logout
 	
-	create view client-panel function:
+	create view choose-type with url ./select-type with function set 		//<TODO>
+
+	create view client-register with url ~/register/client with function usual register(client, user ~/client, load view client-panel)
+	create view client-login with url ~/login/client with function usual login(client, user ~/client, load view client-panel)
+
+	create view freelancer-register with url ~/register/freelancer with function usual register(freelancer /*<TODO>*/)
+	create view freelancer-login with url ~/login/freelancer with function usual login(freelancer /*<TODO>*/)
+	
+	create view home with url ./home with function load file home.html
+	create view about with url ./about with function load file about.html
+	create view contact with url ./contact with function load file contact.html
+	create view legal with url ./legal with function load file legal.html
+	
+	create view client-panel for client with url ./panel/ with function:
 	(	
 		for large laptop:
-		broad horizontal header on top with full width with logo and title
-		fixed narrow horizontal navigation under header with full width with:
-			Home
-			About Us
-			Contact
-			Legal;
-		fixed narrow vertical navigation under horizontal navigation on left with full height with:
-			Projects
-			Messages
-			Freelancers
-			Balance
-			History
-			Log Out;
-		fixed narrow vertical panel under horizontal navigation on right with full height with:
+		broad horizontal header header on top with full width with logo and title
+		fixed narrow horizontal navigation top-navigation under header with full width with:
+			Home(load view home in main)
+			About Us(load view about in main)
+			Contact Us(load view contact in main)
+			Legal(load view legal in main);
+		fixed narrow vertical navigation side-nav under horizontal navigation on left with full height with:
+			Projects(load view client-projects in main)
+			Messages(load view client-messages in main)
+			Freelancers(load view search-freelancers in main)
+			Balance(load view client-balance in main)
+			History(load view client-history in main)
+			Log Out(load view logout);
+		fixed narrow vertical panel side-bar under horizontal navigation on right with full height with:
 			;
-		big panel under horizontal navigation in center
+		big panel main under horizontal navigation in center
 		;
 		
 		for small laptop:;
@@ -117,7 +125,61 @@
 		for phone:;
 	)
 	;
-	create view search-projects
+	create view client-projects
+	create view client-messages
+	create view search-freelancers
+	create view client-balance
+	create view client-history
+
+
+	create mobile-app android with web-app
+	create mobile-app ios with mobile-app android
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//syntax
+	//create
+	create attribute type
+	create object type
+	create user type
+	create action type
+	create view type
+
+	create attribute 
+	create object 
+	create user 
+	create action 
+	create view 
+
+	
+	
+	start
+	
+	namespace
+	
+	activate
 	
 ?>
