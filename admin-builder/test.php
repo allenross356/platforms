@@ -15,50 +15,50 @@
 
 	
 	
-	create attribute type currency(string) possible values(USD,INR,CAD,GBP,AUD)
-	create attribute type budget-range with attributes(int,int) min,max
-	create attribute type balance with attributes(int,currency) amount,currency	
-	create attribute type skills(string array) possible values(c++,js,php,python,android,ios)
-	create attribute type usd-budget-range with attributes(int,int) min,max possible values((5,30),(30,60),(60,100),(100,200),(200,400),(400,800),(800,1500),(1500,2500),(2500,5000),(5000,10000),(10000,20000))
+	create attribute currency(string) possible values(USD,INR,CAD,GBP,AUD)
+	create attribute budget-range with attributes(int,int) min,max
+	create attribute balance with attributes(int,currency) amount,currency	
+	create attribute skills(string array) possible values(c++,js,php,python,android,ios)
+	create attribute usd-budget-range with attributes(int,int) min,max possible values((5,30),(30,60),(60,100),(100,200),(200,400),(400,800),(800,1500),(1500,2500),(2500,5000),(5000,10000),(10000,20000))
 	
-	create user type user with attributes(string,string,string,balance) name,email,pass,balance
-	create user type client extends user
-	create user type freelancer extends user
-	create user admin with attributes(string,string) email,pass
+	create user user with attributes(string,string,string,balance) name,email,pass,balance
+	create user client extends user
+	create user freelancer extends user
+	create single user admin with attributes(string,string) email,pass
 	
 	
-	create action type register by user define as usual register
+	create action register by user define as usual register
 		//OR create action type register by user define usual register
 		//OR create action type register by user usual register
-	create action type login by user define as usual login
+	create action login by user define as usual login
 	
 	//optional
 	start feature projects-and-bidding(client,freelancer) 
 	//end optional
-	create object type project with attributes(string,string,budget-range,currency,skills,string) title,description,budget-range,currency,skills,attachments,additional-info
+	create object project with attributes(string,string,budget-range,currency,skills,string) title,description,budget-range,currency,skills,attachments,additional-info
 	
-	create action type create-project by client on project define as usual insert-record
-	create action type destroy-project by client on own project define as usual delete-record
-	create action type view-project by client on own project define as select-record
+	create action create-project by client on project define as usual insert-record
+	create action destroy-project by client on own project define as usual delete-record
+	create action view-project by client on own project define as select-record
 	
-	create action type view-project by freelancer on project define as usual select-record
-	create action type bid by freelancer on project define as usual mark(string,int,int) proposal,amount,days
-	create action type revoke-bid by own freelance on project define as usual unmark
+	create action view-project by freelancer on project define as usual select-record
+	create action bid by freelancer on project define as usual mark(string,int,int) proposal,amount,days
+	create action revoke-bid by own freelance on project define as usual unmark
 	
-	create action type award by client on own project to owner of bid define as usual mark
-		//OR create action type award by client on own project on owner of bid definition usual mark
-	create action type revoke-award by client on own award define as usual unmark
-		//OR create action type revoke-award by client on own award usual delete-action
+	create action award by client on own project to owner of bid define as usual mark
+		//OR create action award by client on own project on owner of bid definition usual mark
+	create action revoke-award by client on own award define as usual unmark
+		//OR create action revoke-award by client on own award usual delete-action
 	
-	create action type accept by freelancer on own bid on award define as usual mark
-	create action type reject by freelancer on own bid on award define as usual unmark award
+	create action accept by freelancer on own bid on award define as usual mark
+	create action reject by freelancer on own bid on award define as usual unmark award
 	//optional
 	feature end
 	//end optional
 	
 	//<TODO>
 	activate feature usual send-message between client and freelancer with conditions:
-		//OR create action type send-message between user and user on conditions:
+		//OR create action send-message between user and user on conditions:
 	(
 		if from user is client and to user is freelancer and (to user place bid on from user project)
 			//OR if from user is client and to user is freelancer and (to user bid on from user project)
@@ -66,7 +66,7 @@
 		if 
 	)
 	define as usual send-message;
-	create action type fetch-messages by user 
+	create action fetch-messages by user 
 	//end <TODO>
 	
 	
@@ -161,6 +161,8 @@
 	
 	
 	//syntax
+	create <create 
+
 	//create
 	create attribute type
 	create object type
