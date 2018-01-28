@@ -11,27 +11,29 @@ function create_attribute($obj)
 	$pn=$obj['param_names'];
 	$pv=$obj['possible_values'];
 	$cv=$obj['current_value'];
-	$ext=$obj['extensible'];	//boolean
+	$ext=$obj['extensible'];	//boolean			if cmd contains 'some' before 'possible values' (some possible values) then the attribute is extensible 
 	$def=$obj['default'];	//boolean
 
 	if($pv=="" || count($pv)==0) $ext=true;
 
-	$path=_attribute("path");
-	$f=file_get_contents($path._attribute("name").".php");
-	$comment=_attribute('comment');
-	list($arr,$cur)=_create_key_value_string(_attribute('name'),$name,$single,$pt,$pn,$pv,$cv,$ext);
-	$r=eval("return [$arr];");
-	$attributes[$name]=$r;
+	$attributes[$name]=_create_attribute_object(_attribute('name'),$name,$single,$pt,$pn,$pv,$cv,$ext,$def);
+
+	//$path=_attribute("path");
+	//$f=file_get_contents($path._attribute("name").".php");
+	//$comment=_attribute('comment');
+	//list($arr,$cur)=_create_key_value_string(_attribute('name'),$name,$single,$pt,$pn,$pv,$cv,$ext);
+	//$r=eval("return [$arr];");
+	/*$attributes[$name]=$r;
 	if($def)
 		$index=$cv;
 	else
-		$index=_find_object($attributes[$name],$cur);
+		$index=_find_object(_attribute('name'),$name,$attributes[$name],$cur);*/
 	//<TODO> if($index===false) //error
-	$attributes[$name]["current_value"]=$index;
+	//$attributes[$name]["current_value"]=$index;
 
-	$f=str_replace($comment,"public _$name_attr=[$arr];\n\t$comment",$f);
+	//$f=str_replace($comment,"public _$name_attr=[$arr];\n\t$comment",$f);
 
-	file_put_contents($path, $f);
+	//file_put_contents($path, $f);
 }
 
 

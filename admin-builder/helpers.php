@@ -1,8 +1,12 @@
 <?php
-require_once("names.php");
+
 require_once("_helpers.php");
 
-function _find_object(&$haystack,&$needle)
+function _add_value(&$type,&$name,&$value)
+{	//<TODO>
+}
+
+function _find_object(&$type,&$name,&$haystack,&$needle)
 {
 	$i=0;
 	foreach($haystack as $h)
@@ -10,10 +14,42 @@ function _find_object(&$haystack,&$needle)
 		if($h==$needle) return $i;
 		$i++;
 	}
-	if($haystack['extensible'])
+	if($haystack['extensible']) 
+	{
+		_add_value($type,$name,$needle);
+		return $i;
+	}
 	return false;
 }
 
+function _create_attribute_object(&$type,&$name,&$single,&$pt,&$pn,&$pv,&$cv,&$ext,&$def)
+{
+	if(is_array($pt) && count($pt)===1) $pt=$pt[0];
+	if(is_string($pt))	//single field
+	{
+		$r['type']=$pt;
+		foreach(_object_any_array_concat($pt,$pv) as $x)
+			$r[]=$x;
+	}
+	else 	//multiple fields
+	{
+		$r['type']=$pt;
+		$r['field']=$pn;
+		$r['extensible']=_identify_object_type($ext);
+		foreach(_object_multi_complex_array_concat($pt,$pv) as $x)
+			$r[]=$x;
+	}
+	if($single)
+	{
+		if($def)
+			$r['current_val']=_identify_object_type($cv);
+		else
+			$r['current_val']=_find_object($type,$name,$r,$cv);
+	}
+	return $r;
+}
+
+/*
 function _create_key_value_string(&$type,&$name,&$single,&$pt,&$pn,&$pv,&$cv,&$ext)
 {
 	if(is_array($pt) && count($pt)===1) $pt=$pt[0];
@@ -39,6 +75,6 @@ function _create_key_value_string(&$type,&$name,&$single,&$pt,&$pn,&$pv,&$cv,&$e
 	}
 	if($s=='') $s='null';
 	return [$r,$s];
-}
+}*/
 
 ?>

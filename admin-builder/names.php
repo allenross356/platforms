@@ -49,11 +49,16 @@ public $resources=[];
 public $database_credentials=[];
 public $db;
 
-function _folder_resources() {return "./resources";}
-function _file_resources() {return _folder_resources()."/resources.txt";}
+function _resources($attr) {$n="resources";	switch($attr){	
+	case 'folder': 	return "./$n";	
+	case 'file': 	return _resources('folder')."/$n.json";	}}
 
 function _create() {return "define";}
-function _attribute($attr) {$name='attribute'; $r=['name'=>$name,'path'=>_folder_resources()."/$name.php",'comment'=>'//Auto-generated attributes end here. DO NOT touch this or above lines!', 'specific-comment'=>'/*Auto-generated attribute name: ___*/']; return $r[$attr];}
+function _attribute($attr) {$n='attribute'; 	switch($attr){	
+	case 'name': 		return $n;	
+	case 'plural': 		return $n.'s';	
+	case 'path': 		return $_resources('folder')."/"._attribute('plural'); 
+	case 'filename': 	return "$n.php";} }
 function _user() {return "user"};
 function _action() {return "action";}
 function _view() {return "view";}
