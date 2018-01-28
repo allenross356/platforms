@@ -1,0 +1,8 @@
+create user type user with attributes(string,string,string) name,email,pass
+create
+
+
+
+
+
+
