@@ -2,9 +2,13 @@
 
 require_once("enclosing.php");
 
+//<TODO> test performance for passing by reference and compare with passing by value
+
+//create <single> attribute my-attribute 
 function create_attribute($obj)
 {
 	global $attributes;
+	$obj=_move_dash_under($obj);
 	$name=$obj['name'];
 	$single=$obj['single'];	//boolean
 	$pt=$obj['param_types'];
@@ -17,25 +21,13 @@ function create_attribute($obj)
 	if($pv=="" || count($pv)==0) $ext=true;
 
 	$attributes[$name]=_create_attribute_object(_attribute('name'),$name,$single,$pt,$pn,$pv,$cv,$ext,$def);
-
-	//$path=_attribute("path");
-	//$f=file_get_contents($path._attribute("name").".php");
-	//$comment=_attribute('comment');
-	//list($arr,$cur)=_create_key_value_string(_attribute('name'),$name,$single,$pt,$pn,$pv,$cv,$ext);
-	//$r=eval("return [$arr];");
-	/*$attributes[$name]=$r;
-	if($def)
-		$index=$cv;
-	else
-		$index=_find_object(_attribute('name'),$name,$attributes[$name],$cur);*/
-	//<TODO> if($index===false) //error
-	//$attributes[$name]["current_value"]=$index;
-
-	//$f=str_replace($comment,"public _$name_attr=[$arr];\n\t$comment",$f);
-
-	//file_put_contents($path, $f);
 }
 
+function create_user($obj)
+{
+	global $users;
+	$name=
+}
 
 function execute_cmd(&$tokens)
 {

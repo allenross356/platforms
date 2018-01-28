@@ -8,12 +8,17 @@ public _c1=['string'=>"string",'float'=>"float",'int'=>"int",'datetime'=>"string
 public _c2=['mix'=>"mix",''=>"unspecified"];
 public _c3=['bool'=>'bool'];
 
+function _single_move_dash_under($o)	//<TODO> test performance for passing by reference and compare with passing by value
+{
+	return str_replace("-", "_", $o);
+}
+
 function _identify_object_type($v)	//and return the object with proper type casting
 {
 	//<TODO>
 }
 
-function _object_format(&$t,&$v)
+function _object_format(&$t,&$v)	//<TODO> test performance for passing by reference and compare with passing by value
 {//
 	global $_c1,$_c2,$_c3;
 	if(isset($_c1[$t]))	//$t is 'string' or 'float' or 'int' or 'datetime'
@@ -96,7 +101,7 @@ function _object_mutli_complex_array_concat(&$t,&$pv)
 
 
 /*
-function _key_value_format(&$v,&$c)		//<TODO> test performance for passing by reference and compare with passing by value
+function _key_value_format(&$v,&$c)		
 {
 	return ",$c".$v."$c";
 }

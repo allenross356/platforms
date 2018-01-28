@@ -2,6 +2,24 @@
 
 require_once("_helpers.php");
 
+function _move_dash_under($obj)
+{
+	if(is_array($obj))
+	{
+		$n=count($obj);
+		for($i=0;$i<$n;$i++)
+		{		
+			if(is_array($obj[$i]))
+				$obj[$i]=_move_dash_under($obj[$i]);
+			else
+				$obj[$i]=_single_move_dash_under($obj[$i]);
+		}
+	}
+	else
+		$obj=_single_move_dash_under($obj);
+	return $obj;
+}
+
 function _add_value(&$type,&$name,&$value)
 {	//<TODO>
 }
