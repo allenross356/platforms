@@ -1,98 +1,97 @@
 <?php
 line 1
 line 2
-line 3
-line 4
-line 5
-line 7
-stats_dens_f(sers
-	dfr1sdf
-	sdf
-	ssdeep_fuzzy_hash_filename(sd
-		fscanf(dfr1sdf
-			sdfsdf
-			sd
-
-			sdfsdfsd
-			f
-			f
-			sf
-			d
-			fbsql_select_db()fbsql_select_db()fscanf(dfr1sd
-
-				ds
-
-				sf
-				sd
-				fdf_save(f
-					sdfsdfsdf
-					sd
-					fdf_save(fsdfsd
-						f
-						sd
-						fdf_set_file(sdfsdfsdffdsfds
-							f
-							ds
-							sd
-							fdsf
-							sdf
-							d
-							fsdfsddf
-							date_parse_from_format(sd
-								fsdfsddffd
-								dsf
-								sd
-								sdfsdfsdffdsfdssfdds
-
-								fd
-								s
+newt_listitem_get_data(fd
+geoip_db_filename(geoip_db_filename($GLOBALS['date_offset_get()date_offset_get()df
+	geoip_db_filename(g
+		dfgdf
+		g
+		dfgdfd
+		fgetc(dfg
+			dfgdfg
+			df
+			gd_info()fgetc(d
+				fgetc(df
+					gd_info()fgetc(date_default_timezone_get()fgetc(dfgdfgdf
+						geoip_db_filename(geoip_db_filename(geoip_db_filename(gd_info()fdf_get_ap(fdf_get_ap(fgetc(fdf_get_ap(dfg
+							dfgfd
+							geoip_db_filename(geoip_db_filename(gdfg
 								df
-								sdfsdf
-								sd
-								fsdfsddffddf
-								f
-								sd
-								fsd
-								fds
-								ssdeep_fuzzy_compare(sdfsdfsdsd
-									fs
-									sd
-									fd
+
+								gfd
+								gdfgg
+								fclose(fdf_get_ap(fdf_get_ap(fd
+									gfdgf
+									dg
 									df
-									fd
+									gfd
+									dfgdfgdf
+									gdfgggdf
+									gfg
 									df
-									fd
-									d
-									s
-									sdfsdfsdsd
-									fbsql_set_password(
-										ncurses_werase(ncurses_werase(event_buffer_write(ncurses_werase(we
-											rewind(ew
-												ewr
+									g
+									df
+									fclose(dgfsdf
+										sd
+										fbsql_select_db()fclose(domxml_xslt_stylesheet_file(sdfsd
+											fscanf(dfsdf
+												sd
+												fclose(sdfsd
+													sdfsdsd
+													fclose(sd
+														sd
+														f
+														sd
+														cairo_format_stride_for_width(sd
+															f
+															dsf
+															sd
+															f
 
-												r
-												we
-												rwe
-												rweewre
+															gdfgdfg
+															dfgdf
+															gdfgdfgg
+															dfgg
 
-												readline_write_history()echo "ewr
+															dfgfd
+															g
+															fd
+															g
+															fdf_get_ap(fd
+																g
+																fdgdfg
+																df
+																gfdg
+																dfgdfgfd
+																gdfgdfgggfd
+																g
+																fdg
+																df
+																gdfgdfgggfdg
+																fd
+																gdfgdfgggfdgf
+																dgdf
+																g
+																fdf_get_file(g
+																	fd
+																	gdfgdfgggfdgfg
+																	fd
+																	gfddfg
+																	df
+																	gfddfgg
 
-												ew
-												e
-												ewr
-												e
-												ewr
-												e
-												ewr
-												ewr
+																	fdg
+																	fgfd
+																	df
+																	f
+																	gdfgdfg
+																	dfgdfdfg
+																	df
+																	gfdgfd
 
-												ewrew
-												ewewr
-												wer
-												we
-												rweewrerw
-												ereg(werewr
-													ewr
+																	gdfgdfgfd
+																	df
+																	gdf), field, face, filename), width))), format)))), field, face, filename), field, face, filename)))), field, face, filename)), field, face, filename), field, face, filename))))))))))'] = something;)))
 													wer
 													ewr
 													e
