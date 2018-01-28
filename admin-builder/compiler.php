@@ -1,79 +1,37 @@
 <?php
 
-required_once("names.php");
-required_once("helpers.php")
-
-function undo_execution()
-{
-	$res=get_json_file(_file_resources());
-	if(isset(res->files))
-		foreach(res->files as $file)
-			if(!unlink($file)) 
-				print_warning("Cannot delete file: $file");
-	if(isset($res->db_cred) && $res->db)
-	{
-		$host=$res->db_cred->host;
-		$user=$res->db_cred->user;
-		$pass=$res->db_cred->pass;
-		$dbname=$res->db_cred->dbname;
-		open_database($host,$user,$pass,$dbname);
-	}
-	if(isset(res->tables))
-		foreach(res->tables as $table)
-			if(query_database("drop table $table")!==true) 
-				print_warning("Cannot delete table: $table");
-	close_database();
-
-}
-
-function start_execution()
-{
-	undo_execution();
-	//<TODO>
-	//create resources/attribute.php
-	$comment=_attribute('comment');
-	$data=<<<data
-<?php
-
-	$comment
-	
-	//Start your code from below this line:
-?>
-data;
-	file_put_contents(_attribute('path'),$data);
-	//<TODO>
-}
-
-function finish_execution()
-{
-	//store data in resources/resources.txt
-	//
-	global $resources;
-	file_put_contents(_attribute("path"),json_encode($resources));
-}
-
+require_once("enclosing.php");
 
 function create_attribute($obj)
 {
+	global $attributes;
 	$name=$obj['name'];
-	$single=$obj['single'];
+	$single=$obj['single'];	//boolean
 	$pt=$obj['param_types'];
 	$pn=$obj['param_names'];
 	$pv=$obj['possible_values'];
+	$cv=$obj['current_value'];
+	$ext=$obj['extensible'];	//boolean
+	$def=$obj['default'];	//boolean
 
-	if($single==true)
-	{
+	if($pv=="" || count($pv)==0) $ext=true;
 
-	}
+	$path=_attribute("path");
+	$f=file_get_contents($path._attribute("name").".php");
+	$comment=_attribute('comment');
+	list($arr,$cur)=_create_key_value_string(_attribute('name'),$name,$single,$pt,$pn,$pv,$cv,$ext);
+	$r=eval("return [$arr];");
+	$attributes[$name]=$r;
+	if($def)
+		$index=$cv;
 	else
-	{
-		$path=_attribute("path");
-		$f=file_get_contents($path._attribute("name").".php");
-		$comment=_attribute('comment');
-		//$arr=<TODO>;
-		$f=str_replace($comment,"public _$name_attr=[$arr];\n\t$comment",$f);
-		file_put_contents($path, $f);
-	}
+		$index=_find_object($attributes[$name],$cur);
+	//<TODO> if($index===false) //error
+	$attributes[$name]["current_value"]=$index;
+
+	$f=str_replace($comment,"public _$name_attr=[$arr];\n\t$comment",$f);
+
+	file_put_contents($path, $f);
 }
 
 

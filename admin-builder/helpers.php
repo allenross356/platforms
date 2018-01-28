@@ -1,113 +1,44 @@
 <?php
+require_once("names.php");
+require_once("_helpers.php");
 
-public _c1['string'=>"'",'float'=>"'",'int'=>""];
-public _c2['mix'=>"'",''=>"'"];
-
-
-function _key_value_concat(&$v,&$c)
+function _find_object(&$haystack,&$needle)
 {
-	return ",$c".$v."$c";
+	$i=0;
+	foreach($haystack as $h)
+	{
+		if($h==$needle) return $i;
+		$i++;
+	}
+	if($haystack['extensible'])
+	return false;
 }
 
-function _key_value_single_concat(&$t,&$V)
-{
-	global $_c1,$_c2;
-	if(isset($_c1[$t]))	//$t is 'string' or 'float' or 'int'
-		return _key_value_concat($v,$_c1[$t]);
-	elseif(isset($_c2[$t]))	//$t is 'mix' or ''
-	{
-		if(is_int($v))
-			return _key_value_concat($v,$_c1['int']);
-		return _key_value_concat($v,$_c2[$t]);
-	}
-	else 	//$t is user-defined
-	{
-
-	}
-}
-
-function _key_value_array_concat(&$t,&$v)
-{
-	global $_c1,$_c2;
-	if(isset($_c1[$t]))	//$t is 'string' or 'float' or 'int'
-		return _key_value_concat($v,$_c1[$t]);
-	elseif(isset($_c2[$t]))	//$t is 'mix' or ''
-	{
-		if(is_int($v))
-			return _key_value_concat($v,$_c1['int']);
-		return _key_value_concat($v,$_c2[$t]);
-	}
-	else 	//$t is user-defined
-	{
-
-	}
-}
-
-function _create_key_value_string(&$name,&$single,&$pt,&$pn,&$pv)
+function _create_key_value_string(&$type,&$name,&$single,&$pt,&$pn,&$pv,&$cv,&$ext)
 {
 	if(is_array($pt) && count($pt)===1) $pt=$pt[0];
 	$c['string']="'";
 	$c['float']="'";
-	$c['int']="";	
-	if(is_string($pt))
-	{	//single field
-		if(isset($c[$pt]))	//type 'string' or 'float' or 'int'
-		{
-			return "type=>'".$pt."',".$c[$pt].implode($c[$pt].",".$c[$pt],$pv).$c[$pt];
-		}
-		elseif($pt=="mix")
-		{	//type 'mix'
-			$c['mix']="'";
-			$c['']="'";
-			$r='';
-			foreach($pv as $p)
-			{
-				if(isset($c[$p['type']]))
-				{
-					if(isset([''=>1,'mix'=>1][$p['type']]))
-						if(is_int($p['value']))
-						{
-							$r.=','.$p['value'];
-							continue;						
-						}
-					$r.=','.$c[$p['type']].$p['value'].$c[$p['type']];
-				}
-				else
-				{	//$p['type'] is user-defined
-					//<TODO>
-				}
-			}
-			$r="type=>'$pt'".$r;
-		}
-		else
-		{	//type user-defined
-
-		}
+	$c['int']="";
+	$s="";
+	if(is_string($pt))	//single field
+	{	
+		$r="'type'=>'$pt'"._key_value_any_array_concat($pt,$pv);
+		if($single)
+			$s=ltrim(_key_value_single_concat($pt,$cv);	//$r.=",'cur_val'=>".ltrim(_key_value_single_concat($pt,$cv),",").'';
 	}
-	else
-	{	//multiple fields
-		$type="type=>['".implode("','",$pt)."']";
-		$field="field=>['".implode("','",$pn)."']";
-		foreach($pv as $p)
-		{
-			$row="";
-			$i=0;
-			foreach($p as $v)
-			{
-				if(isset($c[$pt[$i]]))	//$pt[$i] is 'string' or 'int' or 'float'
-					$row.=",".$c[$pt[$i]].$v.$c[$pt[$i]];
-				elseif($pt[$i]=='mix')
-				{
-					if($v['type'])
-				}
-				else
-				{	//$pt[$i] is user-defined
-
-				}
-				$i++; 
-			}
-		}
+	else 	//multiple fields
+	{	
+		$type="'type'=>['".implode("','",$pt)."']";
+		$field="'field'=>['".implode("','",$pn)."']";
+		$extensible="'extensible'=>$ext";
+		$r=_key_value_multi_complex_array_concat($pt,$pv);
+		$r="$type,$field,$extensible".$r;
+		if($single)
+			$s="[".ltrim(_key_value_complex_array_concat($pt,$cv)."]"; //$r.=",'cur_val'=>[".ltrim(_key_value_complex_array_concat($pt,$cv),",").']';
 	}
+	if($s=='') $s='null';
+	return [$r,$s];
 }
 
 ?>

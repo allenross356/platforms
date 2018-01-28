@@ -44,7 +44,6 @@ public $actions=[];
 public $views=[];
 public $features=[];
 
-
 public $is_debug_mode=true;
 public $resources=[];
 public $database_credentials=[];
@@ -54,13 +53,14 @@ function _folder_resources() {return "./resources";}
 function _file_resources() {return _folder_resources()."/resources.txt";}
 
 function _create() {return "define";}
-function _attribute($attr) {$name='attribute'; $r=['name'=>$name,'path'=>_folder_resources()."/$name.php",'comment'=>'//Auto-generated attributes end here']; return $r[$attr];}
+function _attribute($attr) {$name='attribute'; $r=['name'=>$name,'path'=>_folder_resources()."/$name.php",'comment'=>'//Auto-generated attributes end here. DO NOT touch this or above lines!', 'specific-comment'=>'/*Auto-generated attribute name: ___*/']; return $r[$attr];}
 function _user() {return "user"};
 function _action() {return "action";}
 function _view() {return "view";}
 
 function open_database()
 {
+	close_database();
 	global $db;
 	$dbc=(object)$database_credentials;
 	if(!isset($dbc->host)) return "Error: host is not set";
@@ -74,6 +74,7 @@ function open_database()
 
 function open_database($host,$user,$pass,$dbname)
 {
+	close_database();
 	global $db;
 	$db=new mysqli($dbc->host,$dbc->user,$dbc->pass,$dbc->dbname);
 	if ($db->connect_error) return "Connection failed: " . $conn->connect_error;
