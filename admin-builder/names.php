@@ -1,4 +1,9 @@
 <?php
+class object
+{
+	//<TODO>
+}
+
 class attribute
 {
 	public $name;
@@ -25,6 +30,11 @@ class action
 	public $functions;	
 }
 
+class trigger
+{
+	//<TODO>
+}
+
 class dependency
 {
 	public $name;	//name of action or object user
@@ -38,31 +48,35 @@ class _function
 	public $params;
 }
 
-public $attributes=[];
 public $users=[];
+public $objects=[];
+public $attributes=[];
 public $actions=[];
-public $views=[];
+public $triggers=[];
 public $features=[];
+public $views=[];
 
 public $is_debug_mode=true;
 public $resources=[];
 public $database_credentials=[];
 public $db;
 
+function _compiler($attr) {switch ($attr){case 'name': return "aftermath";}}
 function _resources($attr) {$n="resources";	switch($attr){	
 	case 'folder': 	return "./$n";	
 	case 'file': 	return _resources('folder')."/$n.json";	}}
-function _compiler($attr) {switch ($attr){case 'name': return "aftermath";}}
 
 function _connect() {return "connect";}
 function _create() {return "define";}
+function _user() {return "user";}
+function _object() {return "object";}
 function _attribute($attr) {$n='attribute'; 	switch($attr){	
 	case 'name': 		return $n;	
 	case 'plural': 		return $n.'s';	
 	case 'path': 		return $_resources('folder')."/"._attribute('plural'); 
 	case 'filename': 	return "$n.php";} }
-function _user() {return "user"};
 function _action() {return "action";}
+function _trigger() {return "trigger";}
 function _view() {return "view";}
 
 function open_database()

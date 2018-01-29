@@ -40,6 +40,15 @@ function _find_object($type,$name,$haystack,$needle)
 	return false;
 }
 
+function _create_object($name,$pt,$pn,$extends)
+{
+	$r=[];
+	$r['type']=$pt;
+	$r['field']=$pn;
+	$r=_create_attribute_table($r,$name,$single,$pt,$pn,$pv,$cv,$ext,$def);		
+	return $r;	
+}
+
 function _create_attribute($name,$single,$pt,$pn,$pv,$cv,$ext,$def,$extends)
 {
 	$r=[];
@@ -64,4 +73,10 @@ function _create_user($name,$pt,$pn,$pv,$ext,$extends)
 {
 	$r=_create_attribute($name,false,$pt,$pn,$pv,null,$ext,null,$extends);
 }
+
+function _create_action($name,$single,$pt,$pn,$pv,$cv,$ext,$def,$extends)
+{
+
+}
+
 ?>

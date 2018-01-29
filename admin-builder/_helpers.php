@@ -20,6 +20,7 @@ public _c3=['bool'=>'bool'];
 	//password
 	//email
 	//phone number
+//<TODO> for create_object, implement recursive/nested object handling
 
 
 function _single_move_dash_under($o)
@@ -128,6 +129,7 @@ function _type_to_sql($type)	//<TODO>
 		case "int": return "tinyint";
 		case "text": return "tinytext";
 		case "float": return 
+
 	}
 }
 
@@ -156,9 +158,16 @@ function _build_insert_values_query($table_name,$field_names,$values)	//assuming
 	return "insert into $tn($t) values($v)";
 }
 
+function _execute_insert_query($table_name,$field_names,$values)
+{
+	//<TODO> first check if the count of the previous rows is not overflowing. check after the query fails in order to be efficient.
+	$r=query_database($sql);
+	if($err) then check size of the values and check the capacity of fields and adjust field capacity accordingly//<TODO>
+}
+
 //[],			[]			[[]]			[]				bool 		bool
 //param_types, param_names, possible_values, current_value, extensible, default
-function _create_object($r,$pt,$pv)	
+function _create_attribute_object($r,$pt,$pv)	
 {
 	if(is_string($pt))	//$pt is string.. single field
 		foreach(_object_any_array_concat($pt,$pv) as $x)
@@ -169,13 +178,12 @@ function _create_object($r,$pt,$pv)
 	return $r;
 }
 
-function _create_table($r,$name,$pt,$pn,$pv)
+function _create_attribute_table($r,$name,$pt,$pn,$pv)
 {
-	$sql=[_build_create_table_query($name,$pt,$pn)];
+	query_database(_build_create_table_query($name,$pt,$pn));
 	$v=_create_attribute_object([],$pt,$pv);
 	foreach($pv as $p)
-		$sql[]=_build_insert_values_query($name,$pn,$pv);
-	query_database(implode(";",$sql));
+		_build_insert_values_query($name,$pn,$pv);	//<TODO> mysql error handling
 	return $r;
 }
 

@@ -15,6 +15,18 @@ function connect_database($obj)
 	set_database_credentials($host,$user,$pass,$db);
 }
 
+function create_object($obj)	//<TODO> implement nested/recursive object handling
+{
+	global $objects;
+	$obj=_move_dash_under($obj);
+	$name=$obj['name'];	//my-attribute
+	$pt=$obj['param_types'];	//attributes types 
+	$pn=$obj['param_names'];	//attributes
+	$extends=$obj['extends'];	//<TODO> implement	//string or list of attributes
+
+	$objects[$name]=_create_object($name,$pt,$pn,$extends);	//type, field <optional>, current_val, extensible
+}
+
 //create <single> attribute my-attribute 
 function create_attribute($obj)
 {
@@ -28,11 +40,11 @@ function create_attribute($obj)
 	$cv=$obj['current_values'];
 	$ext=$obj['extensible'];	//boolean			if cmd contains 'some' before 'possible values' (some possible values) then the attribute is extensible 
 	$def=$obj['default'];	//boolean
-	$extends=$obj['extends']	//<TODO> implement	//string or list of attributes
+	$extends=$obj['extends'];	//<TODO> implement	//string or list of attributes
 
 	if($pv=="" || count($pv)==0) $ext=true;
 
-	$attributes[$name]=_create_attribute($name,$single,$pt,$pn,$pv,$cv,$ext,$def);	//type, field <optional>, current_val, extensible
+	$attributes[$name]=_create_attribute($name,$single,$pt,$pn,$pv,$cv,$ext,$def,$extends);	//type, field <optional>, current_val, extensible
 }
 
 function create_user($obj)
@@ -44,15 +56,29 @@ function create_user($obj)
 	$pn=$obj['param_names'];	//attributes
 	$pv=$obj['possible_values'];
 	$ext=$obj['extensible'];	//boolean			if cmd contains 'some' before 'possible values' (some possible values) then the attribute is extensible 
-	$extends=$obj['extends']	//string or list of attributes
+	$extends=$obj['extends'];	//string or list of attributes
 
+	if($pv=="" || count($pv)==0) $ext=true;
+
+	$users[$name]=_create_user($name,$pt,$pn,$pv,$ext,$def,$extends);	//type, field <optional>, current_val, extensible
+}
+
+function create_action($obj)
+{
+	$by=$obj['by'];	//list or string
+}
+
+function create_trigger($obj)
+{
+	//<TODO>
 }
 
 function execute_cmd(&$tokens)
 {
 	if($tokens['cmd']==_create())
 	{
-		if($tokens['type']==_attribute("name")) create_attribute($tokens['obj']);
+		if($tokens['type']==_object()) create_object($tokens['obj']);
+		elseif($tokens['type']==_attribute("name")) create_attribute($tokens['obj']);
 		elseif($tokens['type']==_user()) create_user($tokens['obj']);
 		elseif($tokens['type']==_action()) create_action($tokens['obj']);
 	}

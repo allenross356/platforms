@@ -31,12 +31,37 @@
 
 	//user sample:
 	create user user with attributes(string,string,password) name,email,pass
-	create user admin with attribute(string,password) email,pass with values(allenross653@gmail.com,mypass)	//possible is added by default before 'value' or 'values'
+	create user admin with attribute(string,password) email,pass with values(allenross653@gmail.com,mypass)	//possible is added by default before 'value'/'values'
 	create user client extends user with attributes(datetime) dob
 	create user freelancer extends user
 		//Later add:
 		//- handling of multiple extends
 
+	//object sample:
+	create object project with attributes(string,string,budget-range,currency,skills,blob,project) title,description,budget-range,currency,skills,attachments,additional-info
+	//Can have nested/recursive objects
+
+	//action sample:
+	create action register by user define as usual register
+		create action register by user define usual register
+		create action register by user usual register
+
+	create action create-project by client on project define as usual insert-record
+	create action destroy-project by client on own project define as usual delete-record
+	create action view-project by client on own project define as usual select-record
+	create action view-project by freelancer on project define as usual select-record
+
+	create action bid by freelancer on project define as usual mark(string,int,int) proposal,amount,days
+	create action revoke-bid by own freelancer on project define as usual unmark
+
+	create action award by client on own project to bid's owner define as usual mark
+		create action award by client on own project on bid's owner definition usual mark
+	create action revoke-award by client on own award define as usual unmark
+		create action revoke-award by client on own award usual delete-action
+
+	create action accept by freelancer on own bid on award define as usual mark
+	create action reject by freelancer on own bid on award define as usual unmark award
+	
 
 
 	//project sample:
