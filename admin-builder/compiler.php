@@ -3,30 +3,49 @@
 require_once("enclosing.php");
 
 //<TODO> test performance for passing by reference and compare with passing by value
+//<TODO> add type password in addition string and int
+
+function connect_database($obj)
+{
+	$obj=_move_dash_under($obj);
+	$host=$obj['host'];
+	$user=$obj['user'];
+	$pass=$obj['pass'];
+	$db=$obj['db'];
+	set_database_credentials($host,$user,$pass,$db);
+}
 
 //create <single> attribute my-attribute 
 function create_attribute($obj)
 {
 	global $attributes;
 	$obj=_move_dash_under($obj);
-	$name=$obj['name'];
+	$name=$obj['name'];	//my-attribute
 	$single=$obj['single'];	//boolean
-	$pt=$obj['param_types'];
-	$pn=$obj['param_names'];
+	$pt=$obj['param_types'];	//attributes types 
+	$pn=$obj['param_names'];	//attributes
 	$pv=$obj['possible_values'];
-	$cv=$obj['current_value'];
+	$cv=$obj['current_values'];
 	$ext=$obj['extensible'];	//boolean			if cmd contains 'some' before 'possible values' (some possible values) then the attribute is extensible 
 	$def=$obj['default'];	//boolean
 
 	if($pv=="" || count($pv)==0) $ext=true;
 
-	$attributes[$name]=_create_attribute_object(_attribute('name'),$name,$single,$pt,$pn,$pv,$cv,$ext,$def);
+	$attributes[$name]=_create_attribute($name,$single,$pt,$pn,$pv,$cv,$ext,$def);	//type, field <optional>, current_val, extensible
 }
 
 function create_user($obj)
 {
 	global $users;
-	$name=
+	$obj=_move_dash_under($obj);
+	$name=$obj['name'];	//my-attribute
+	$pt=$obj['param_types'];	//attributes types 
+	$pn=$obj['param_names'];	//attributes
+	$cv=$obj['current_values'];	//attributes
+	$extends=$obj['extends'];	//null or object or list of objects
+	$single=$obj['single'];	//boolean
+	$
+
 }
 
 function execute_cmd(&$tokens)
@@ -36,6 +55,10 @@ function execute_cmd(&$tokens)
 		if($tokens['type']==_attribute("name")) create_attribute($tokens['obj']);
 		elseif($tokens['type']==_user()) create_user($tokens['obj']);
 		elseif($tokens['type']==_action()) create_action($tokens['obj']);
+	}
+	elseif($tokens['cmd']==_connect())
+	{
+
 	}
 }
 

@@ -52,7 +52,9 @@ public $db;
 function _resources($attr) {$n="resources";	switch($attr){	
 	case 'folder': 	return "./$n";	
 	case 'file': 	return _resources('folder')."/$n.json";	}}
+function _compiler($attr) {switch ($attr){case 'name': return "aftermath";}}
 
+function _connect() {return "connect";}
 function _create() {return "define";}
 function _attribute($attr) {$n='attribute'; 	switch($attr){	
 	case 'name': 		return $n;	
@@ -100,7 +102,9 @@ function query_database($sql)
 
 function print_warning($msg)
 {
-	echo $msg."<br>";
+	global $is_debug_mode;
+	if($is_debug_mode)
+		echo $msg."<br>";
 }
 
 function get_json_file($file)

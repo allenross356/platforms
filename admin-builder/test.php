@@ -13,8 +13,32 @@
 	//start and end keywords
 	//view 
 
-	
-	
+	//database
+	connect database mydatabase on host localhost with user root and pass null
+
+	//attribute sample:
+	create single attribute state(string) with possible values(running,pause,stop) with current value(stop)
+	create attribute skills(string) with some possible values(js,php,c++,android,ios)
+	create single attribute name(string) with value(Allen)		//current is added by default before 'value' or 'values'
+	create attribute currency(string) with some possible values(usd,cad,gbp,aud,inr)
+	create attribute balance with attributes(int,currency) amount,currency
+		//Later add:
+		//- subset
+		//- superset
+		//- extends
+			//- handling of multiple of subset/superset/extends
+
+	//user sample:
+	create user user with attributes(string,string,password) name,email,pass
+	create single user admin with attribute(string,password) email,pass with values(allenross653@gmail.com,mypass)
+	create user client extends user with attributes(datetime) dob
+	create user freelancer extends user
+		//Later add:
+		//- handling of multiple extends
+
+
+
+	//project sample:
 	create attribute currency(string) possible values(USD,INR,CAD,GBP,AUD)
 	create attribute budget-range with attributes(int,int) min,max
 	create attribute balance with attributes(int,currency) amount,currency	
@@ -132,9 +156,15 @@
 	create view client-history
 
 
-	create mobile-app android with web-app
-	create mobile-app ios with mobile-app android
-	
+	create web-app for php/laravel
+	create web-app for php
+	create web-app for python/django
+	create mobile-app for android with web-app
+	create mobile-app for ios with mobile-app android
+	create software-app for windows with web-app
+	create software-app for linux with web-app
+	create software-app for mac with web-app
+
 	
 	
 	
