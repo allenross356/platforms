@@ -32,6 +32,20 @@ function _identify_object_type($v)	//and return the object with proper type cast
 	//<TODO>
 }
 
+function _value_to_list($v)
+{
+	if(is_array($v)) return $v;
+	return [$v];
+}
+
+function _values_to_list($v)
+{
+	if(is_array($v[0])) return $v;
+	foreach($v as &$x)
+		$x=[$x];
+	return $v;
+}
+
 function _object_format($t,$v)	
 {
 	global $_c1,$_c2,$_c3;
@@ -107,10 +121,13 @@ function _object_mutli_complex_array_concat($t,$pv)
 	return $r;
 }
 
-function _type_to_sql($type)
+function _type_to_sql($type)	//<TODO>
 {
 	switch $type{
-		case "string": return varchar()
+		case "string": return "varchar(2)";
+		case "int": return "tinyint";
+		case "text": return "tinytext";
+		case "float": return 
 	}
 }
 
@@ -120,65 +137,48 @@ function _build_create_table_query($table_name,$field_types,$field_names,$add_id
 	$r="create table $tn(";
 	$v=[];
 	if($add_id) $v[]="_id tinyint unique auto_increment primary key";
-	if(is_string($field_types))	
+	list($field_types,$field_names)=_values_to_list([$field_types,$field_names]);
+	$i=0;
+	foreach($field_types as $f)
 	{
-		if($field_names=='' || $field_names==[]) $field_names=$table_name;
-		$v[]=$field_names[$i]." "._type_to_sql($field_types);
-	}
-	else
-	{
-		$i=0;
-		foreach($field_types as $f)
-		{
-			$v[]=$field_names[$i]." "._type_to_sql($f);
-			$i++;
-		}
+		$v[]=$field_names[$i]." "._type_to_sql($f);
+		$i++;
 	}
 	$r.=implode(",",$v).")";
 }
 
 function _build_insert_values_query($table_name,$field_names,$values)	//assuming all object values are already converted to valid mysql data types
 {
-	if(is_string($field_names))
-	{
-		$t=$field_names;
-		$v=$values;
-	}
-	else
-	{
-		$t=implode(',',$field_names);
-		$v=implode(',',$values);
-	}
+	list($field_names,$values)=_values_to_list([$field_names,$values]);
+	$t=implode(',',$field_names);
+	$v=implode(',',$values);
 	$tn=$table_name."_"._compiler('name');
 	return "insert into $tn($t) values($v)";
 }
 
 //[],			[]			[[]]			[]				bool 		bool
 //param_types, param_names, possible_values, current_value, extensible, default
-function _create_attribute_object($r,$name,$single,$pt,$pn,$pv,$cv,$ext,$def)	
+function _create_object($r,$pt,$pv)	
 {
 	if(is_string($pt))	//$pt is string.. single field
-	{
 		foreach(_object_any_array_concat($pt,$pv) as $x)
 			$r[]=$x;
-	}
 	else 	//$pt is list of strings.. multiple fields
-	{
 		foreach(_object_multi_complex_array_concat($pt,$pv) as $x)
 			$r[]=$x;
-	}
 	return $r;
 }
 
-function _create_attribute_table($r,$name,$single,$pt,$pn,$pv,$cv,$ext,$def)
+function _create_table($r,$name,$pt,$pn,$pv)
 {
 	$sql=[_build_create_table_query($name,$pt,$pn)];
-	$v=_create_attribute_object([],$name,$single,$pt,$pn,$pv,$cv,$ext,$def);
+	$v=_create_attribute_object([],$pt,$pv);
 	foreach($pv as $p)
 		$sql[]=_build_insert_values_query($name,$pn,$pv);
 	query_database(implode(";",$sql));
 	return $r;
 }
+
 
 
 

@@ -28,6 +28,7 @@ function create_attribute($obj)
 	$cv=$obj['current_values'];
 	$ext=$obj['extensible'];	//boolean			if cmd contains 'some' before 'possible values' (some possible values) then the attribute is extensible 
 	$def=$obj['default'];	//boolean
+	$extends=$obj['extends']	//<TODO> implement	//string or list of attributes
 
 	if($pv=="" || count($pv)==0) $ext=true;
 
@@ -41,10 +42,9 @@ function create_user($obj)
 	$name=$obj['name'];	//my-attribute
 	$pt=$obj['param_types'];	//attributes types 
 	$pn=$obj['param_names'];	//attributes
-	$cv=$obj['current_values'];	//attributes
-	$extends=$obj['extends'];	//null or object or list of objects
-	$single=$obj['single'];	//boolean
-	$
+	$pv=$obj['possible_values'];
+	$ext=$obj['extensible'];	//boolean			if cmd contains 'some' before 'possible values' (some possible values) then the attribute is extensible 
+	$extends=$obj['extends']	//string or list of attributes
 
 }
 

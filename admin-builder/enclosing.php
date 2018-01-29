@@ -19,7 +19,7 @@ function undo_execution()
 	}
 	if(isset(res->tables))
 		foreach(res->tables as $table)
-			if(query_database("drop table $table")!==true) 
+			if(query_database("drop table $table"."_"._compiler('name'))!==true) 
 				print_warning("Cannot delete table: $table");
 	close_database();
 

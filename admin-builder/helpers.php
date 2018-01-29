@@ -40,7 +40,7 @@ function _find_object($type,$name,$haystack,$needle)
 	return false;
 }
 
-function _create_attribute($name,$single,$pt,$pn,$pv,$cv,$ext,$def)
+function _create_attribute($name,$single,$pt,$pn,$pv,$cv,$ext,$def,$extends)
 {
 	$r=[];
 	$r['type']=$pt;
@@ -60,8 +60,8 @@ function _create_attribute($name,$single,$pt,$pn,$pv,$cv,$ext,$def)
 	return $r;	
 }
 
-function _create_user($name,$single,$pt,$pv,$cv,$extends)
+function _create_user($name,$pt,$pn,$pv,$ext,$extends)
 {
-
+	$r=_create_attribute($name,false,$pt,$pn,$pv,null,$ext,null,$extends);
 }
 ?>

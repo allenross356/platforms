@@ -14,12 +14,13 @@
 	//view 
 
 	//database
-	connect database mydatabase on host localhost with user root and pass null
+	connect to database my-database on host localhost with user root and pass null
+	connect database freelancer-project host ftp.wantro.com user wantro pass wantro123
 
 	//attribute sample:
-	create single attribute state(string) with possible values(running,pause,stop) with current value(stop)
+	create attribute state(string) with possible values(running,pause,stop) with current value(stop)
 	create attribute skills(string) with some possible values(js,php,c++,android,ios)
-	create single attribute name(string) with value(Allen)		//current is added by default before 'value' or 'values'
+	create attribute name(string) with value(Allen)		//current is added by default before 'value' or 'values'
 	create attribute currency(string) with some possible values(usd,cad,gbp,aud,inr)
 	create attribute balance with attributes(int,currency) amount,currency
 		//Later add:
@@ -30,7 +31,7 @@
 
 	//user sample:
 	create user user with attributes(string,string,password) name,email,pass
-	create single user admin with attribute(string,password) email,pass with values(allenross653@gmail.com,mypass)
+	create user admin with attribute(string,password) email,pass with values(allenross653@gmail.com,mypass)	//possible is added by default before 'value' or 'values'
 	create user client extends user with attributes(datetime) dob
 	create user freelancer extends user
 		//Later add:
