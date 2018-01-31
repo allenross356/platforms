@@ -5,6 +5,67 @@ require_once("enclosing.php");
 //<TODO> test performance for passing by reference and compare with passing by value
 //<TODO> add type password in addition string and int
 
+
+//<TODO> add following features 
+//adding blog: 
+	//automate link building
+	//automate content generation
+		//automate hidden original content rephrasing
+		//visible original content 
+//web scraping and web simulation
+	//social media simulation
+	//email scraping
+	//content scraping
+		//english rephrasing
+		//image modifying
+		//video modifying
+		//audio modifying
+	//link building
+	//own forum simulation (reply to threads by posting on another forum and copying replies from there)
+//providing support on generic topics: automation of replying by posting the question on another forum and then posting the replies back on own forum.
+//forum and automation multiple replies to threads
+//social media accounts
+	//automatic posting (hunting high quality posts and reposting)
+	//automatic liking/sharing/retweeting
+	//automatic replies to people (try but not sure)
+	//all major platforms
+		//FB (add friends, wall post, messaging, FB groups - own groups and others' groups)
+		//twitter (tweets, retweets, like/love, messaging, groups)
+		//linkedin
+		//tumblr (posts, follow, messaging)
+		//instagram (posts, follow, messaging)
+		//pinterest (posts, follow, messaging)
+		//whatsapp
+		//reddit
+		//craigslist
+		//etc
+//notification marketing
+	//email capturing, pop ups, opt-ins
+	//sending marketing
+	//social media
+//location track (like uber)
+//payment gateway
+//version control similar to github and svn (merging, compressing and submitting the files on the server)
+//automatic download and set up of files when features require them.. until the features are not called in the code, the heavy libraries are not downloaded/installed
+//automatic injection of upgrades and assignment of tasks
+//game development
+	//game rules and AI for playing the game
+	//types of games
+		//board game
+		//puzzles
+		//car game
+		//shooting game
+//algorithms
+	//photo editing and restructure algorithms
+	//video editing and restructure algorithms
+	//AI algorithms
+		//image recognition
+		//text recognition
+		//face recognition
+		//voice recognition
+		//logical, geometrical problem solving
+	
+
 function connect_database($obj)
 {
 	$obj=_move_dash_under($obj);
@@ -65,7 +126,10 @@ function create_user($obj)
 
 function create_action($obj)
 {
+	$name=$obj['name'];
 	$by=$obj['by'];	//list or string
+	$define=$obj['define'];
+
 }
 
 function create_trigger($obj)

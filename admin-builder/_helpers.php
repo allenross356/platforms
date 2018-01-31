@@ -5,7 +5,7 @@ require_once("names.php");
 //public _c1['string'=>"'",'float'=>"",'datetime'=>"'",'int'=>"",'bool'=>""];
 //public _c2['mix'=>"'",''=>"'"];
 public _c1=['string'=>"string",'float'=>"float",'int'=>"int",'datetime'=>"string"];	//<TODO> add type password and email and phone number and text and blob
-public _c2=['mix'=>"mix",''=>"unspecified"];
+public _c2=['mix'=>"mix",''=>"unspecified"];	//<TODO> add type array 
 public _c3=['bool'=>'bool'];
 
 //<TODO> create_attribute

@@ -55,13 +55,51 @@
 	create action revoke-bid by own freelancer on project define as usual unmark
 
 	create action award by client on own project to bid's owner define as usual mark
-		create action award by client on own project on bid's owner definition usual mark
+		create action award by client on own project on bid's owner define usual mark
 	create action revoke-award by client on own award define as usual unmark
 		create action revoke-award by client on own award usual delete-action
 
 	create action accept by freelancer on own bid on award define as usual mark
 	create action reject by freelancer on own bid on award define as usual unmark award
 	
+	create action award by client to freelancer who bid on own project
+
+	//alternate action sample:
+	create action create-project by client on project 	//automatically means define usual create
+	create action myaction by myuser on myobject define as usual read, func1, func2
+
+	create action create-project by client on project define as usual create 	//multiple create-project per client
+	create action destroy-project by client on own project define as usual delete
+		create action delete-project by client on own project
+	create action edit-project by client on project(title,skills,attachments) define as usual edit
+	create action view-project by client on own project define as usual read
+	create action search-project by client and freelancer on project define as usual read
+		create action search-project by client, freelancer on project define as usual read
+
+	create action bid by freelancer on project define as usual mark(string,int,int) proposal,amount,days 	//multiple bids..one bid for one project
+	create action revoke-bid by freelancer define as usual unmark
+		create action revoke-bid by freelancer on own bid define as usual unmark
+
+	create action mark-award by client on own project's bid's owner
+		create action mark-award by client on own project's bid's freelancer define as mark 	//define relationship one-to-one, one-to-many
+		create action award by client on own project's bid's owner define as mark
+		create action mark-award by client on owner of bid of own project
+	create action revoke-award by client on own mark-award 
+		create action revoke-award by client on own mark-award define as unmark
+
+				//frequency of action 
+					//one 						one and only	one
+					//one per action-taker		one for each 	multiple-one
+						//one-to-one
+						//one-to-many
+					//multiple 					multiple 		multiple-many
+						//relation between action-taker and subject
+							//one-to-one
+							//one-to-many
+							//many-to-one
+							//many-to-many 
+
+	create action(one) mark-award by client on own project's bid's owner 
 
 
 	//project sample:
