@@ -129,7 +129,7 @@ function create_action($obj)
 	$name=$obj['name'];
 	$by=$obj['by'];	//list or string
 	$define=$obj['define'];
-
+	$relation=$obj[]
 }
 
 function create_trigger($obj)

@@ -89,15 +89,88 @@
 
 				//frequency of action 
 					//one 						one and only	one
-					//one per action-taker		one for each 	multiple-one
+					//one per action-taker		one for each 	multiple-one	duplicate				
 						//one-to-one
 						//one-to-many
-					//multiple 					multiple 		multiple-many
+					//multiple 					multiple 		multiple-many 	duplicate
 						//relation between action-taker and subject
 							//one-to-one
 							//one-to-many
 							//many-to-one
 							//many-to-many 
+
+		/*
+		one, one 
+			one, one 
+				!duplicate
+			!one, many	
+			!multiple, one		
+			!multiple, many
+		one, many 	
+			!one, one 
+			one, many
+				+duplicate 	
+			multiple, one
+				!duplicate 		
+			multiple, many
+				+duplicate
+		multiple, one 		
+			!one, one 
+			one, many 	
+				!duplicate
+			multiple, one
+				!duplicate
+			multiple, many
+				!duplicate
+		multiple, many
+			!one, one 
+			one, many
+				+duplicate 	
+			multiple, one 
+				!duplicate		
+			multiple, many
+				duplicate
+
+
+
+		single, one 	+single, one 
+		single, many 	
+			single, many	+duplicate 	
+			multi, one
+			multi, many	+duplicate
+		multi, one 		
+			single, many 	
+			multi, one
+			multi, many
+		multi, many
+			single, many	+duplicate 	
+			multi, one 
+			multi, many
+				duplicate
+				no duplicate
+
+		one-to-one
+			single, single
+			multi, multi
+		one-to-many
+			multi, single
+			multi, multi
+		many-to-one
+			single, multi
+			multi, multi
+		many-to-many
+			single, single 	+duplicate
+			single, multi 	+duplicate
+			multi, single 	+duplicate
+			multi, multi
+				duplicate
+				no duplicate
+
+		create action mark-award by client on own project's bid's owner frequency one
+
+
+		*/
+
 
 	create action(one) mark-award by client on own project's bid's owner 
 
