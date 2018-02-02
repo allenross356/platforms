@@ -126,10 +126,18 @@ function create_user($obj)
 
 function create_action($obj)
 {
+	global $actions;
+	$obj=_move_dash_under($obj);
 	$name=$obj['name'];
 	$by=$obj['by'];	//list or string
-	$define=$obj['define'];
-	$relation=$obj[]
+	$freq_user=$obj['frequency_user'];	//array with 2 elements ['single',''] OR ['',''] OR ['multi','multi']
+	$freq_subject=$obj['frequency_subject'];	//array with 2 elements ['single',''] OR ['',''] OR ['multi','multi']
+	$subject=$obj['subject'];	//array with key 'of'.. array of arrays with keys 'of'
+	$relation=$obj['relation'];		//null (default depending on freq and subject type) or string 'many-to-one' 
+	$duplicate=$obj['duplicate'];	//boolean
+	$define=$obj['define'];		//null ['usual'=>[],'user-defined'=>['$name']] OR ['usual'=>[implode('-',$name)[0]],'user-defined'=>[]] // array with keys 'usual' and 'user-defined', and values as arrays ['usual'=>['create'],'user-defined'=>['myfunc']] 
+
+	$actions[$name]=_create_action($name,$by,$freq_user,$freq_subject,$subject,$relation,$duplicate,$define);
 }
 
 function create_trigger($obj)

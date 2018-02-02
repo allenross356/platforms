@@ -114,7 +114,7 @@ function _object_complex_array_concat($t,$v)	//$t=[type1,type2,type3], $v=[obj1,
 	return $r;
 }
 
-function _object_mutli_complex_array_concat($t,$pv)
+function _object_mutli_complex_array_concat($t,$pv)	//$t=[type1,type2,type3], $v=[[obj11,obj12,obj13],[obj21,obj22,obj23]]
 {
 	$r=[];
 	foreach($pv as $v)
@@ -132,8 +132,8 @@ function _type_to_sql($type)	//<TODO>
 
 	}
 }
-
-function _build_create_table_query($table_name,$field_types,$field_names,$add_id=true)
+//								   string,     array string,array string,boolean
+function _build_create_table_query($table_name,$field_types,$field_names,$add_id=true)	
 {
 	$tn=$table_name."_"._compiler('name');
 	$r="create table $tn(";
@@ -147,8 +147,10 @@ function _build_create_table_query($table_name,$field_types,$field_names,$add_id
 		$i++;
 	}
 	$r.=implode(",",$v).")";
+	return $r;
 }
 
+//									string,     array string,array string
 function _build_insert_values_query($table_name,$field_names,$values)	//assuming all object values are already converted to valid mysql data types
 {
 	list($field_names,$values)=_values_to_list([$field_names,$values]);
@@ -180,11 +182,25 @@ function _create_attribute_object($r,$pt,$pv)
 
 function _create_attribute_table($r,$name,$pt,$pn,$pv)
 {
-	query_database(_build_create_table_query($name,$pt,$pn));
+	query_database(_build_create_table_query($name,$pt,$pn));	//<TODO> mysql error handling
 	$v=_create_attribute_object([],$pt,$pv);
-	foreach($pv as $p)
-		_build_insert_values_query($name,$pn,$pv);	//<TODO> mysql error handling
+	foreach($v as $p)
+		$q[]=_build_insert_values_query($name,$pn,$p);	//<TODO> mysql error handling
+	$q[]='';
+	query_database(implode(';',$q));
 	return $r;
+}
+
+function _create_action_get_types_and_names($by,$subject)
+{
+	if(is_string($by)) $by=[$by];
+	if(!is_array($subject));	//<TODO> error handling
+	if(array_key_exists('of', $subject)) $subject=[$subject];
+	$r=[]
+	foreach($by as $b)
+		$r[]=;
+		foreach($subject as $s)
+
 }
 
 

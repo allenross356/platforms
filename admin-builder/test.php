@@ -100,35 +100,35 @@
 							//many-to-many 
 
 		/*
-		one, one 
-			one, one 
+		single, one 
+			single, one 
 				!duplicate
-			!one, many	
-			!multiple, one		
-			!multiple, many
-		one, many 	
-			!one, one 
-			one, many
+			!single, many	
+			!multi, one		
+			!multi, many
+		single, many 	
+			!single, one 
+			single, many
 				+duplicate 	
-			multiple, one
+			multi, one
 				!duplicate 		
-			multiple, many
+			multi, many
 				+duplicate
-		multiple, one 		
-			!one, one 
-			one, many 	
+		multi, one 		
+			!single, one 
+			single, many 	
 				!duplicate
-			multiple, one
+			multi, one
 				!duplicate
-			multiple, many
+			multi, many
 				!duplicate
-		multiple, many
-			!one, one 
-			one, many
+		multi, many
+			!single, one 
+			single, many
 				+duplicate 	
-			multiple, one 
+			multi, one 
 				!duplicate		
-			multiple, many
+			multi, many
 				duplicate
 
 
@@ -166,8 +166,32 @@
 				duplicate
 				no duplicate
 
-		create action mark-award by client on own project's bid's owner frequency one
+		single, single
+			one-to-one						default if action/user
+			many-to-many	+duplicate 		default if object
+		single, multi
+			many-to-one						default if action/user
+			many-to-many	+duplicate 		default if object
+		multi, single
+			one-to-many 					default if action/user
+			many-to-many	+duplicate 		default if object
+		multi, multi
+			one-to-one 						default if action/user
+			one-to-many 					default if object
+			many-to-one
+			many-to-many
+				duplicate 					
+				no duplicate				default
 
+		create action mark-award by client on own project's bid's owner with one-to-many relationship 		(default multi, multi)
+		create action mark-award by single client on own project's bid's single owner with one-to-one relationship 	
+		create action mark-award by single client on own project's bid's single owner 		(default one-to-one) 	
+		create action mark-award by client on own project's bid's owner with many-to-many multi relationship  		(duplicate) 	
+		create action mark-award by client on own project's bid's owner with many-to-many relationship  		(no duplicate) 	
+
+		each
+		both 
+		respectively
 
 		*/
 
