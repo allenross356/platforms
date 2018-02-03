@@ -75,7 +75,11 @@ function _attribute($attr) {$n='attribute'; 	switch($attr){
 	case 'plural': 		return $n.'s';	
 	case 'path': 		return $_resources('folder')."/"._attribute('plural'); 
 	case 'filename': 	return "$n.php";} }
-function _action() {return "action";}
+function _action($attr=null,$type=null) { if($attr==null && $type==null) return 'action';
+	$a=['create'=>'create','delete'=>'delete','edit'=>'edit','read'=>'read','mark'=>'mark','unmark'=>'unmark'];
+	switch ($attr){ 
+		case 'type': return $a[$type];
+		case 'all_types': return $a; }} 	//create, delete, edit, read, mark, unmark
 function _trigger() {return "trigger";}
 function _view() {return "view";}
 

@@ -76,6 +76,19 @@ function _create_user($name,$pt,$pn,$pv,$ext,$extends)
 
 function _create_action($name,$by,$freq_user,$freq_subject,$relation,$duplicate,$subject,$define);	//<TODO> implement 'respectively', 'each', 'all'/'both' for multiple $by and $subject
 {
+	/*<TODO> implement in syntax reader
+	global $_action;
+	if($define==null)
+	{
+		$d=explode('-',$name)[0];
+		foreach($_action('all_types') as $a)
+			if($d==$a)
+			{
+				$define=['usual'=>$d];
+				break;
+			}
+	}*/
+
 	$r=[];
 	$r['by']=$by;
 	$r['frequency_user']=$freq_user;
@@ -85,8 +98,10 @@ function _create_action($name,$by,$freq_user,$freq_subject,$relation,$duplicate,
 	$r['subject']=$subject;
 	$r['define']=$define;
 
-	list($pt,$pn)=_create_action_get_types_and_names($by,$subject);
-	$r=_create_attribute_table($r,$name,$pt,$pn,null);
+	$pn=_create_action_get_types_and_names($by,$subject);	//<START HERE> implement the create, mark, etc.
+	foreach($pn as $p)
+		$r=_create_attribute_table($r,$name,$p,$p,null);
+
 }
 
 ?>

@@ -189,9 +189,9 @@
 		create action mark-award by client on own project's bid's owner with many-to-many multi relationship  		(duplicate) 	
 		create action mark-award by client on own project's bid's owner with many-to-many relationship  		(no duplicate) 	
 
-		each
-		both 
-		respectively
+		each 			//<TODO>
+		both 			//<TODO>
+		respectively 	//<TODO>
 
 		*/
 

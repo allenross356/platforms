@@ -20,7 +20,9 @@ public _c3=['bool'=>'bool'];
 	//password
 	//email
 	//phone number
+	//any attribute, object, user or action
 //<TODO> for create_object, implement recursive/nested object handling
+//<TODO> implement handling of multiple usual define in action name such as create-read-project
 
 
 function _single_move_dash_under($o)
@@ -196,11 +198,17 @@ function _create_action_get_types_and_names($by,$subject)
 	if(is_string($by)) $by=[$by];
 	if(!is_array($subject));	//<TODO> error handling
 	if(array_key_exists('of', $subject)) $subject=[$subject];
-	$r=[]
+	$r=[];
+	$i=0;
 	foreach($by as $b)
-		$r[]=;
-		foreach($subject as $s)
-
+	{
+		$r[]=[];
+		$r[$i][]=$b;
+		foreach($subject as $s)	
+			$r[$i][]=$s;	
+		$i++;
+	}
+	return $r;
 }
 
 
