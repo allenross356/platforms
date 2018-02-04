@@ -98,6 +98,41 @@ function _create_action($name,$by,$freq_user,$freq_subject,$relation,$duplicate,
 	$r['subject']=$subject;
 	$r['define']=$define;
 
+	/*
+	if object/user/attribute/action not specified ('on' parameter is null)
+		assumed that the object/user/attribute/action already exists
+		if action is usual
+			if action is create
+				create table <action name>(object id, user id)
+				create API for user to take action to insert the record
+			elseif action is delete
+				create API for user to take action to delete the record from both tables (object table, related user table)
+			elseif action is edit
+				create API for user to take action to update the record
+			elseif action is read
+				create API for user to take action to select the record
+			endif
+		endif
+	elseif the object/action/attribute/user doesn't exists
+		create the table 
+	else if object/action/attribute/user exists
+		if object is usual
+		if action is usual
+			if action is create
+				create API for user to take action to insert the record
+			elseif action is delete
+				create API for user to take action to delete the record
+			elseif action is edit
+				create API for user to take action to update the record
+			elseif action is read
+				create API for user to take action to select the record
+			endif
+		elseif action is not usual
+
+		endif
+	endif
+	*/
+
 	$pn=_create_action_get_types_and_names($by,$subject);	//<START HERE> implement the create, mark, etc.
 	foreach($pn as $p)
 		$r=_create_attribute_table($r,$name,$p,$p,null);

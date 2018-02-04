@@ -66,6 +66,7 @@
 
 	//alternate action sample:
 	create action create-project by client on project 	//automatically means define usual create
+	create action create-project by client  	//automatically means on project and define usual create
 	create action myaction by myuser on myobject define as usual read, func1, func2
 
 	create action create-project by client on project define as usual create 	//multiple create-project per client
@@ -186,6 +187,7 @@
 		create action mark-award by client on own project's bid's owner with one-to-many relationship 		(default multi, multi)
 		create action mark-award by single client on own project's bid's single owner with one-to-one relationship 	
 		create action mark-award by single client on own project's bid's single owner 		(default one-to-one) 	
+		create action mark-award by client on own project's bid's owner with many-to-many multi relationship  		(duplicate) 	
 		create action mark-award by client on own project's bid's owner with many-to-many multi relationship  		(duplicate) 	
 		create action mark-award by client on own project's bid's owner with many-to-many relationship  		(no duplicate) 	
 
